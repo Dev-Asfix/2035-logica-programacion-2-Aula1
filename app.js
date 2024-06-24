@@ -1,5 +1,7 @@
 let numeroSecreto = 0;
 let intentos = 0;
+let listaDeNumerosSorteados = [];
+let numeroMaximo = 10;
 
 console.log(numeroSecreto);
 
@@ -38,7 +40,22 @@ function verificarIntento(){
 }
 
 function generarNumeroSecreto(){
-    return Math.floor(Math.random()*10)+1;
+    let listaNumero = Math.floor(Math.random()*numeroMaximo)+1;
+    console.log(listaDeNumerosSorteados)
+
+    //Si no esta en la lista
+    if(listaDeNumerosSorteados.length == numeroMaximo){
+        asignarTextoElemento("p", "Ya se sortearon todos los numeros posibles");
+    } else {
+
+        if(listaDeNumerosSorteados.includes(listaNumero)){
+            return generarNumeroSecreto();
+
+        }else{
+            listaDeNumerosSorteados.push(listaNumero);
+            return listaNumero;
+        }
+    }
 }
 
 function limpiarCaja(){
@@ -49,7 +66,7 @@ function limpiarCaja(){
 
 function mensajeInicial(){
     asignarTextoElemento("h1","Juego del numero Secreto!");
-    asignarTextoElemento("p","Escoge un número del 1 al 10");
+    asignarTextoElemento("p",`Indica un numero del 1 al ${numeroMaximo}.`);
     intentos = 1;
     limpiarCaja();
     numeroSecreto = generarNumeroSecreto();
@@ -66,47 +83,3 @@ function nuevoJuego(){
     document.querySelector("#reiniciar").setAttribute("disabled","true");
 
 }
-
-//Calcular Factorial
-function calcularFactorial(numero){
-    if(numero == 0 || numero == 1){
-        return 1;
-
-    } else {
-        return numero * calcularFactorial(numero -1);
-    }
-
-}
-
-let resultado = calcularFactorial(5);
-console.log(resultado)
-
-//Calcular Area
-function calcularArea(alto,ancho){
-    let area = alto * ancho;
-    let perimetro = (alto*2)+(ancho*2);
-    console.log(`El area es ${area} y el permitro es : ${perimetro}`)
-    return;
-}
-
-calcularArea(10,4);
-
-function calcularCircunferencia(radio){
-    let pi = 3.14;
-    let areaCircular = pi*(radio*radio);
-    let circunferencia = 2* pi * radio;
-    console.log(`El area es ${areaCircular} y la circunferencia es ${circunferencia}`);
-    return;
-}
-
-calcularCircunferencia(2);
-
-function pantalla(numero){
-    let intentos = 1 ;
-    while(intentos <= 12){
-        console.log(`${numero} * ${intentos} = ${numero*intentos}`)
-        intentos++;
-    }
-
-}
-pantalla(4);
